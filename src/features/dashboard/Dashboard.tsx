@@ -3,18 +3,32 @@ import BalanceCard from "../../components/layout/BalanceCard";
 import Header from "../../components/layout/Header";
 import MobileContainer from "../../components/layout/MobileContainer";
 import TransactionList from "../../components/layout/TransactionList";
-import type { CreateTransactionInput, Transaction } from "../../types/transaction";
+import type {
+  CreateTransactionInput,
+  Transaction,
+} from "../../types/transaction";
 import AddTransactionModal from "../../components/layout/AddTransactionModal";
+import IncomeExpenseCards from "../../components/ui/IncomeExpenseCards";
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [open, setOpen] = useState(false);
   const balance = useMemo(() => {
     return transactions.reduce((total, tx) => {
-      return tx.type === "income"
-        ? total + tx.amount
-        : total - tx.amount;
+      return tx.type === "income" ? total + tx.amount : total - tx.amount;
     }, 0);
+  }, [transactions]);
+
+  const income = useMemo(() => {
+    return transactions
+      .filter((tx) => tx.type === "income")
+      .reduce((sum, tx) => sum + tx.amount, 0);
+  }, [transactions]);
+
+  const expense = useMemo(() => {
+    return transactions
+      .filter((tx) => tx.type === "expense")
+      .reduce((sum, tx) => sum + tx.amount, 0);
   }, [transactions]);
 
   const handleAdd = (data: CreateTransactionInput) => {
@@ -23,7 +37,7 @@ const Dashboard = () => {
       ...data,
       date: new Date().toISOString(),
     };
-  
+
     setTransactions((prev) => [...prev, newTransaction]);
   };
 
@@ -32,6 +46,7 @@ const Dashboard = () => {
       <MobileContainer>
         <Header />
         <BalanceCard balance={balance} />
+        <IncomeExpenseCards income={income} expense={expense} />
         <TransactionList
           transactions={transactions}
           onAdd={() => {
