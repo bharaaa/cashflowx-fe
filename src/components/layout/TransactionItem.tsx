@@ -1,5 +1,6 @@
 import type { Transaction } from "../../types/transaction";
 import { formatCurrency } from "../../utils/currency";
+import { formatTransactionDate } from "../../utils/formatDate";
 
 type Props = {
   transaction: Transaction;
@@ -19,7 +20,7 @@ const TransactionItem = ({ transaction }: Props) => {
       <div>
         <p className="text-sm font-medium">{transaction.category}</p>
         <p className="text-xs text-gray-400">
-          {transaction.note || transaction.date}
+          {formatTransactionDate(transaction.date)}
         </p>
       </div>
 
