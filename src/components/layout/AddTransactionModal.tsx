@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import type { CreateTransactionInput } from "../../types/transaction";
 
@@ -12,6 +12,18 @@ const AddTransactionModal = ({ open, onClose, onSubmit }: Props) => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState<"income" | "expense">("expense");
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [open]);
 
   if (!open) return null;
 
@@ -32,7 +44,7 @@ const AddTransactionModal = ({ open, onClose, onSubmit }: Props) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/20 px-4">
-      <div className="mockup-window border border-base-content/20 bg-white">
+      <div className="mockup-window border border-base-content/20 bg-white rounded-xl">
         <div className="modal-box w-full max-w-sm p-4">
           <h3 className="mb-4 text-lg font-semibold">Add Transaction</h3>
 
