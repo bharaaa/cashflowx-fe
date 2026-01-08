@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <header className="mb-4 flex items-center justify-between">
-      <h1 className="text-lg font-semibold tracking-tight">CFX</h1>
+      <p className="text-5xl font-semibold tracking-tight">Cashflow</p>
 
       <span className="text-xs text-gray-500">Today</span>
     </header>

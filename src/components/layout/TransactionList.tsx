@@ -4,29 +4,29 @@ import TransactionItem from "./TransactionItem";
 
 type Props = {
   transactions: Transaction[];
+  onAdd: () => void;
 };
 
-const TransactionList = ({ transactions }: Props) => {
-  if (transactions.length === 0) {
-    return (
-      <>
-        <div className="flex flex-col gap-2">
-          <div className="p-6 bg-red-100 text-center text-sm text-gray-400">
-            No transactions yet
-          </div>
-          <div>
-            <Button className="btn-soft btn-primary">Add Transaction</Button>
-          </div>
-        </div>
-      </>
-    );
-  }
-
+const TransactionList = ({ transactions, onAdd }: Props) => {
+  const isEmpty = transactions.length === 0;
   return (
-    <div className="mt-6 space-y-3">
-      {transactions.map((tx) => (
-        <TransactionItem key={tx.id} transaction={tx} />
-      ))}
+    <div className="flex flex-col gap-4">
+      {isEmpty ? (
+        <div className="p-6 text-center text-sm text-gray-400">
+          No transactions yet
+        </div>
+      ) : (
+        <div className="mt-2 space-y-3">
+          {transactions.map((tx) => (
+            <TransactionItem key={tx.id} transaction={tx} />
+          ))}
+        </div>
+      )}
+
+      {/* Single source of truth */}
+      <Button className="btn-soft btn-primary w-full" onClick={onAdd}>
+        Add Transaction
+      </Button>
     </div>
   );
 };

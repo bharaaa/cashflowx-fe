@@ -6,5 +6,12 @@ export type Transaction = {
   category: string;
   amount: number;
   note?: string;
-  date: string; // ISO string or formatted date
+  date: string; //ISO string or formatted date
+};
+
+export type CreateTransactionInput = {
+  amount: number;
+  type: TransactionType;
+  category: string;
+  note?: string;
 };

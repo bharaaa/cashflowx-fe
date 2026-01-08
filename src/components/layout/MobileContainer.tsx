@@ -1,6 +1,6 @@
 const MobileContainer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="mx-auto min-h-screen px-4 pt-4">
+    <div className="flex flex-col mx-auto min-h-screen px-4 gap-2 pt-4">
       {children}
     </div>
   );
