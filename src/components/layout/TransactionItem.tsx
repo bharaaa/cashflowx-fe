@@ -19,6 +19,10 @@ const TransactionItem = ({ transaction }: Props) => {
     >
       <div>
         <p className="text-sm font-medium">{transaction.category}</p>
+        <p className="text-xs text-gray-500">
+          {transaction.note?.trim() || "No Notes"}
+        </p>
+
         <p className="text-xs text-gray-400">
           {formatTransactionDate(transaction.date)}
         </p>

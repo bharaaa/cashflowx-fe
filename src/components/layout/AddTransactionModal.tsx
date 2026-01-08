@@ -12,6 +12,7 @@ const AddTransactionModal = ({ open, onClose, onSubmit }: Props) => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState<"income" | "expense">("expense");
+  const [note, setNote] = useState("");
 
   useEffect(() => {
     if (open) {
@@ -34,12 +35,14 @@ const AddTransactionModal = ({ open, onClose, onSubmit }: Props) => {
       category,
       amount: Number(amount),
       type,
+      note: note.trim() || undefined,
     });
 
     onClose();
     setCategory("");
     setAmount("");
     setType("expense");
+    setNote("");
   };
 
   return (
@@ -73,6 +76,13 @@ const AddTransactionModal = ({ open, onClose, onSubmit }: Props) => {
               <option value="expense">Expense</option>
               <option value="income">Income</option>
             </select>
+
+            <textarea
+              placeholder="Note (optional)"
+              className="textarea textarea-bordered w-full"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+            />
           </div>
 
           <div className="mt-6 flex gap-2">
